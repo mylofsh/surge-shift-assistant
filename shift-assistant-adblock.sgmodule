@@ -1,0 +1,46 @@
+#!name=倒班助手去广告
+#!desc=屏蔽「倒班助手」App 内置广告（穿山甲 / 优量汇 / 天目 / 谷粒等），并改写其广告开关接口
+#!system=ios,mac
+#!author=mylofsh
+#!category=去广告
+#!homepage=https://github.com/mylofsh/surge-shift-assistant
+
+[Rule]
+# ===== 穿山甲（字节跳动）=====
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT-DROP
+DOMAIN-SUFFIX,pangolin-sdk-toutiao1.com,REJECT-DROP
+DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com,REJECT-DROP
+DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT-DROP
+
+# ===== 优量汇（腾讯 GDT）=====
+DOMAIN-SUFFIX,gdt.qq.com,REJECT-DROP
+
+# ===== 天目 =====
+DOMAIN-SUFFIX,sdk.tianmu.mobi,REJECT-DROP
+
+# ===== 谷粒 =====
+DOMAIN-SUFFIX,ad.gameley.com,REJECT-DROP
+DOMAIN-SUFFIX,jp.ad.gameley.com,REJECT-DROP
+DOMAIN-SUFFIX,de.ad.gameley.com,REJECT-DROP
+
+# ===== 其他国内广告聚合 =====
+DOMAIN-SUFFIX,admobile.top,REJECT-DROP
+DOMAIN-SUFFIX,adwangmai.com,REJECT-DROP
+DOMAIN-SUFFIX,ctobsnssdk.com,REJECT-DROP
+DOMAIN-SUFFIX,umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,jpush.cn,REJECT-DROP
+DOMAIN-SUFFIX,adbiding.com,REJECT-DROP
+DOMAIN-SUFFIX,beizi.biz,REJECT-DROP
+DOMAIN-SUFFIX,divms.cn,REJECT-DROP
+DOMAIN-SUFFIX,vipliangmei.com,REJECT-DROP
+DOMAIN-SUFFIX,litemob.net,REJECT-DROP
+DOMAIN-SUFFIX,aishuttler.com,REJECT-DROP
+DOMAIN-SUFFIX,dutils.com,REJECT-DROP
+DOMAIN-SUFFIX,api.share.mob.com,REJECT-DROP
+DOMAIN-SUFFIX,xlog.jd.com,REJECT-DROP
+
+[Script]
+倒班助手广告开关 = type=http-response,pattern=^https:\/\/open\.daobanzhushou\.cn\/shiftassistant\/rs\/(outad\/isshow|advertisement\/adshow),requires-body=1,max-size=0,timeout=10,script-path=https://raw.githubusercontent.com/mylofsh/surge-shift-assistant/main/scripts/ad-off.js
+
+[MITM]
+hostname = %APPEND% open.daobanzhushou.cn
